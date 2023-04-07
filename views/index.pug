@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Myself sumanth reddy, my favorite cricket team is CSK.
+  p Welcome to CSK fans Club #{title}
+  button(type="button" class="btn btn-secondary" onclick="doReduce()") Press Me
+  div#reduce Reduce the value 
+   script.
+    let count = 20;
+    let change = -1;
+    function doReduce() {
+      count += change;
+      change -= 1;
+      document.getElementById('reduce').textContent = `Count ${count} with change ${change}`;
+    }

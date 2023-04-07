@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  - var gun=[{gun_name:"AK",gun_weight:200,gun_manufacturer:"anarkali"},{gun_name:"UMP",gun_weight:300,gun_manufacturer:"uncleben"},{gun_name:"kalashinikavo",gun_weight:500,gun_manufacturer:"rocky"}]
+  div(class="container-fluid")
+  div(class="row")
+   each g,index  in gun
+    div(class="col-sm-2" onclick =`buy(${index})`) #{g.gun_name}, #{g.gun_weight}, #{g.gun_manufacturer}
+    script.
+        function buy(a)
+        {
+            alert(`You purchased Item ${a+1}`)
+        } 
