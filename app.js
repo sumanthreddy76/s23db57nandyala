@@ -4,15 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-require('dotenv').config();
-const connectionString =
-  process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+
 
 
 
@@ -24,13 +16,7 @@ var seRouter = require('./routes/selector');
 var glove = require("./models/glove");
 var resourceRouter = require('./routes/resource');
 
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
-db.once("open", function () {
-  console.log("Connection to DB succeeded")
-});
+
 
 // We can seed the collection if needed onserver start
 async function recreateDB() {
@@ -67,7 +53,7 @@ async function recreateDB() {
     console.log(err);
 
   })
-}
+};
 let reseed = true;
 if (reseed) { recreateDB(); }
 
@@ -109,5 +95,19 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,{useNewUrlParser: true, useUnifiedTopology: true});
+
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")})
 
 module.exports = app;
