@@ -1,0 +1,23 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+  
+  a {
+    color: #00B7FF;
+  }
+  
+  .gloveAttr {
+    background-color: aquamarine;
+    width: 120px;
+   }
+
+   #gloveForm {
+    background-color:rgb(22, 200, 90);
+    width: 325px;
+  }
+  
+  h1{
+    color: rgb(186, 35, 80);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }

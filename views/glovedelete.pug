@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let gunid = toShow._id
+    - let gun_name = toShow.gun_name
+    - let gun_weight = toShow.gun_weight
+    - let gun_manufacturer = toShow.gun_manufacturer
+    - let actionid = "/resource/glove/" + gunid
+    script.
+      let actionid = "#{actionid}"
+    div
+      .row
+        div.gunAttr.mr-3 gun ID is:
+        div #{gunid}
+      .row
+        div.gunAttr.mr-3 gun  name is:
+        div #{gun_name}
+      .row
+        div.gunAttr.mr-3 gun weight Size is:
+        div #{gun_weight}
+      .row
+        div.gunAttr.mr-3 gun manufacturer is:
+        div #{gun_manufacturer}
+      button.btn.btn-danger.m-2(onclick="deleteOnid()") Delete
+      button.btn.btn-secondary.m-2(onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the costume collection
+        window.location.href='/glove'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeeded")
+          window.location.href='/glove'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }

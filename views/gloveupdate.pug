@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+  - let gunid = toShow._id
+  - let gun_name = toShow.gun_name
+  - let gun_weight = toShow.gun_weight
+  - let gun_manufacturer = toShow.gun_manufacturer
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{gunid}
+    - let actionid = "/resource/glove/" + gunid
+    form(id='gunForm', action= actionid, method="PUT")
+      div.form-group
+        label.gloveAttr(for='gun_name') Gun name
+        input#gun_name(type='text', name='gun_name', value= gun_name )
+      div.form-group
+        label.gloveAttr(for='gun_weight') gun weight
+        input#gun_weight(type='text', name='gun_weight', value= gun_weight )
+      div.form-group
+        label.gloveAttr(for='gun_manufacturer') gun manufacturer
+        input#gun_manufacturer(type='number', name='gun_manufacturer', value= gun_manufacturer )
+      input(type="submit")
+      script.
+        document.forms['gunForm'].addEventListener('submit', (event) => {
+          event.preventDefault();
+          // TODO do something here to show user that form is being submitted
+          fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+          }).then((resp) => {
+            return resp.json(); // or resp.text() or whatever the server sends
+          }).then((body) => {
+            alert("Update succeeded");
+            // TODO handle body
+          }).catch((error) => {
+            // TODO handle error
+            alert("Update failed " + error );
+          });
+        });

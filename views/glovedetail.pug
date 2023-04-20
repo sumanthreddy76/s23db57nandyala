@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  - let gunid = toShow._id
+  - let gun_name = toShow.gun_name
+  - let gun_weight = toShow.gun_weight
+  - let gun_manufacturer = toShow.gun_manufacturer
+  
+  div
+    div.row
+      div(class='gloveAttr mr-3') Gun ID is:
+      div #{gunid}
+      
+    div.row
+      div(class='gloveAttr mr-3') Gun name is:
+      div #{gun_name}
+      
+    div.row
+      div(class='gloveAttr mr-3') Gun Weight is:
+      div #{gun_weight}
+      
+    div.row
+      div(class='gloveAttr mr-3') Gun Manufacturer is:
+      div #{gun_manufacturer}
