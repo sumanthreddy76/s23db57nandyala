@@ -1,16 +1,42 @@
+//- extends layout
+
+//- block content
+//-   - let gloves = results
+//-   h1= title
+//-   div(class="container-fluid")
+//-   div(class="row m-1")
+//-     each glove in gloves
+//-       - let destination = `dispatch(\"/glove/update?id=${glove._id}\")`
+//-       div(class="row-sm-2", class="m-1") Glove #{glove.gun_name}(#{glove.gun_weight}) is #{glove.gun_manufacturer} 
+//-         button.btn( class="btn-primary ml-1", onclick= destination) Update
+
+//-   script.
+//-     function dispatch(path){
+//-       window.location.href=path
+//-     }
 extends layout
-
 block content
-  - let gloves = results
   h1= title
-  div(class="container-fluid")
+  - let result = results;
+  a(class="btn btn-success" href="/glove/create") Create
+  div(class="container-fluid mt-3")
   div(class="row m-1")
-    each glove in gloves
-      - let destination = `dispatch(\"/glove/update?id=${glove._id}\")`
-      div(class="row-sm-2", class="m-1") Glove #{glove.gun_name}(#{glove.gun_weight}) is #{glove.gun_manufacturer} 
+    each result,index in results
+      - let destination = `dispatch(\"/glove/update?id=${result._id}\")`
+      div(class="col-sm-2" onclick=`buy(${index})`)  #{result.gun_name} -  #{result.gun_weight} - #{result.gun_manufacturer}
         button.btn( class="btn-primary ml-1", onclick= destination) Update
-
-  script.
-    function dispatch(path){
-      window.location.href=path
+        a(class="btn btn-danger" href=`/glove/delete?id=${result._id}`) Delete
+        a(class="btn btn-dark" href=`/glove/detail?id=${result._id}`) Details
+  br
+  div(class="container-fluid")
+    div(class="row")
+    - for(var i=0;i<results.length;i++) {
+        div(class="col-sm-2" width="215px" onClick=`buy(${i+1})`) #{results[i].gun_name}
+    -}
+  script. 
+    function buy(indexNum) {
+      alert(`You purchased item ${indexNum}`);
+    }
+    function dispatch(path){ 
+      window.location.href=path 
     }
